@@ -1,12 +1,13 @@
 SRCS = \
 fdf.c \
 
+NAME =		a.out
 CFLAGS =	-Wall -Wextra -Werror
 
-all:		a.out
+all:		$(NAME)
 
-a.out:		minilibx-linux/libmlx.a $(SRCS)
-			cc $(CFLAGS) $(SRCS)
+$(NAME):	minilibx-linux/libmlx.a $(SRCS)
+			cc $(CFLAGS) $(SRCS) -o $(NAME)
 
 minilibx-linux/libmlx.a:
 			git clone https://github.com/42Paris/minilibx-linux.git
