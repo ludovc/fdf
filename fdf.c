@@ -1,18 +1,14 @@
 #include <unistd.h>
-
-void	print(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
+#include "minilibx-linux/mlx.h"
+#include "minilibx-linux/mlx_int.h"
 
 int		main()
 {
-	print("fdf\n");
+	void	*qualcosa;
+	void	*qualcosaltro;
+
+	qualcosa = mlx_init();
+	qualcosaltro = mlx_new_window(qualcosa, 500, 500, "fdf");
+	mlx_loop(qualcosa);
+	//mlx_pixel_put(qualcosa, qualcosaltro, 10, 10, 0x00FF0000);
 }
