@@ -28,10 +28,11 @@ void	put_horizontal_line(t_data *img, int x, int y, int size)
 {
 	int		i;
 
+	(void)y;
 	i = 0;
 	while (i < size)
 	{
-		my_mlx_pixel_put(img, x + i, y, 0x00FFFFFF);
+		my_mlx_pixel_put(img, x + (1.73)*i, y + i, 0x00FFFFFF);
 		i++;
 	}
 }
@@ -59,9 +60,9 @@ int	main(void)
 	img.img = mlx_new_image(mlx, 500, 500);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	put_horizontal_line(&img, 10, 10, 100);
-	put_vertical_line(&img, 10, 10, 100);
-	put_horizontal_line(&img, 10, 110, 100);
-	put_vertical_line(&img, 110, 10, 100);
+	//put_vertical_line(&img, 10, 10, 100);
+	//put_horizontal_line(&img, 10, 110, 100);
+	//put_vertical_line(&img, 110, 10, 100);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }
