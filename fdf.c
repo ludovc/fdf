@@ -53,6 +53,9 @@ int	main(void)
 	void	*mlx;
 	void	*mlx_win;
 	t_data	img;
+	char	**s;
+
+	s = parsing();
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 500, 500, "Hello world!");
