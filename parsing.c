@@ -1,14 +1,4 @@
-#include <stdlib.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include "get_next_line/get_next_line.h"
-#include "libft/libft.h"
-
-typedef struct s_mat
-{
-	int		**mat;
-	int		x;
-}				t_mat;
+#include "fdf.h"
 
 void	print_mat_char(char **mat)
 {
@@ -43,7 +33,7 @@ char	**parsing_old()
 	int		i;
 
 	i = 0;
-	fd = open("maps/42.fdf", O_RDONLY);
+	fd = open("maps/mini.fdf", O_RDONLY);
 	mat = malloc(sizeof(char *) * 2);
 	while ((s = get_next_line(fd)))
 	{
@@ -109,7 +99,7 @@ void	parsing(t_mat *mat)
 	char	**tmp;
 
 	i = 0;
-	fd = open("maps/42_1space.fdf", O_RDONLY);
+	fd = open("maps/42.fdf", O_RDONLY);
 	mat->mat = malloc(sizeof(char *) * 2);
 	while ((s = get_next_line(fd)))
 	{
@@ -123,6 +113,7 @@ void	parsing(t_mat *mat)
 	mat->mat[i] = NULL;
 }
 
+/*
 int	main()
 {
 	//char	**mat;
@@ -131,3 +122,4 @@ int	main()
 	parsing(&mat);
 	print_mat(mat);
 }
+*/

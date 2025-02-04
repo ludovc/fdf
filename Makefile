@@ -1,8 +1,9 @@
 SRCS = \
 fdf.c \
+parsing.c \
 
 NAME =		a.out
-CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror -g
 
 all:		$(NAME)
 
@@ -10,7 +11,7 @@ parsing:
 	cc -g parsing.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft/libft.a
 
 $(NAME):	minilibx-linux/libmlx.a $(SRCS)
-			cc $(CFLAGS) $(SRCS) -Lminilibx-linux -lmlx -lXext -lX11 -o $(NAME)
+			cc $(CFLAGS) $(SRCS) get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft/libft.a -Lminilibx-linux -lmlx -lXext -lX11 -o $(NAME)
 
 minilibx-linux/libmlx.a:
 			git clone https://github.com/42Paris/minilibx-linux.git
@@ -18,3 +19,5 @@ minilibx-linux/libmlx.a:
 
 fclean:
 			rm -f $(NAME)
+
+re:	fclean all
