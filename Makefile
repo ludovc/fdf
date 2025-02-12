@@ -2,7 +2,7 @@ SRCS = \
 fdf.c \
 parsing.c \
 
-NAME =		a.out
+NAME =		fdf
 CFLAGS =	-Wall -Wextra -Werror -g
 
 all:		$(NAME)
