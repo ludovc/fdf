@@ -38,10 +38,26 @@ void	put_vertical_line(t_data *img, int x, int y, int size)
 	}
 }
 
+void	projection(int *x, int *y, int z)
+{
+	int	prev_x = *x;
+	int	prev_y = *y;
+
+	// Convertiamo gli angoli in radianti
+    float radX = 45.0 * M_PI / 180.0;
+    float radY = 35.264 * M_PI / 180.0;
+
+    // Applichiamo la trasformazione isometrica
+    *x = prev_x * cos(radX) - prev_y * cos(radX);
+    *y = prev_x * sin(radY) + prev_y * sin(radY) - z;
+}
+
 void	create_image(t_mat *mat, t_data *img)
 {
 	int		i;
 	int		j;
+	int		x;
+	int		y;
 
 	i = 0;
 	while (mat->mat[i])
@@ -49,7 +65,10 @@ void	create_image(t_mat *mat, t_data *img)
 		j = 0;
 		while (j < mat->x)
 		{
-			my_mlx_pixel_put(img, 100 + j * 30, 100 + i * 30 + j * 10, 0x00FFFFFF);
+			x = 100 + j * 30;
+			y = 100 + i * 30;
+			projection(&x, &y, 0);
+			my_mlx_pixel_put(img, x, y, 0x00FFFFFF);
 			j++;
 		}
 		i++;

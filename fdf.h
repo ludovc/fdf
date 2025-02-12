@@ -1,6 +1,7 @@
 #ifndef FDF_H
 # define FDF_H
 
+# include <math.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <stdio.h>
