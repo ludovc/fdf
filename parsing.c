@@ -91,7 +91,7 @@ int	*fun(char **tmp, int size)
 	return (res);
 }
 
-void	parsing(t_mat *mat)
+void	parsing(t_mat *mat, char *file)
 {
 	int		fd;
 	char	*s;
@@ -99,7 +99,7 @@ void	parsing(t_mat *mat)
 	char	**tmp;
 
 	i = 0;
-	fd = open("maps/42.fdf", O_RDONLY);
+	fd = open(file, O_RDONLY);
 	mat->mat = malloc(sizeof(char *) * 2);
 	while ((s = get_next_line(fd)))
 	{

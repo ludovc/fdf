@@ -26,7 +26,7 @@ typedef struct s_mat
 	int		x;
 }				t_mat;
 
-void	parsing(t_mat *mat);
+void	parsing(t_mat *mat, char *file);
 void	print_mat(t_mat mat);
 
 #endif

@@ -75,14 +75,19 @@ void	create_image(t_mat *mat, t_data *img)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	void	*mlx;
 	void	*mlx_win;
 	t_data	img;
 	t_mat	mat;
 
-	parsing(&mat);
+	if (argc != 2)
+	{
+		ft_printf("args error\n");
+		return (0);
+	}
+	parsing(&mat, argv[1]);
 	print_mat(mat);
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1000, 1000, "Hello world!");
