@@ -12,10 +12,11 @@ parsing:
 	cc -g parsing.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft/libft.a
 
 $(NAME):	minilibx-linux/libmlx.a $(LIBFT) $(SRCS)
-			cc $(CFLAGS) $(SRCS) get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft/libft.a -Lminilibx-linux -lmlx -lXext -lX11 -o $(NAME) -lm
+			cc $(CFLAGS) $(SRCS) get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft/libft.a -Lminilibx-linux -lmlx -lXext -lX11 -o $(NAME) -lm ft_printf/libftprintf.a
 
 $(LIBFT):
 	make -C libft
+	make -C ft_printf
 
 minilibx-linux/libmlx.a:
 			git clone https://github.com/42Paris/minilibx-linux.git

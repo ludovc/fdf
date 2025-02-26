@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include "minilibx-linux/mlx.h"
 #include "minilibx-linux/mlx_int.h"
+#include "ft_printf/ft_printf.h"
 
 typedef struct	s_data {
 	void	*img;
