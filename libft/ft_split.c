@@ -3,124 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdessant <pdessant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/23 11:58:31 by pdessant          #+#    #+#             */
-/*   Updated: 2025/02/04 17:26:54 by lucasu           ###   ########.fr       */
+/*   Created: 2024/12/03 16:33:43 by lucasu            #+#    #+#             */
+/*   Updated: 2025/05/12 16:41:57 by lucasu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	charset_checker(char c, char ch)
+static int	is_word(char c, char check)
 {
-	if (ch == c)
-		return (1);
-	return (0);
+	return (!(c == check || c == '\0'));
 }
 
-void	portion(const char *str, char c, int counter, char *buff)
+static int	count_words(char const *str, char check)
 {
-	int	flag;
-	int	i;
-	int	j;
+	int		i;
+	int		res;
 
-	flag = 0;
-	i = 0;
-	j = 0;
-	while (str[i] && counter > 0)
-	{
-		if (charset_checker(str[i], c) == 0)
-		{
-			if (counter == 1)
-				buff[j++] = str[i];
-			flag = 1;
-		}
-		else if (flag == 1)
-		{
-			counter--;
-			flag = 0;
-		}
-		i++;
-	}
-	buff[j] = '\0';
-}
-
-int	ft_str_counter(const char *str, char c)
-{
-	int	counter;
-	int	flag;
-	int	i;
-
-	counter = 0;
-	flag = 0;
+	res = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (charset_checker(str[i], c) == 0 && flag == 0)
-		{
-			counter++;
-			flag = 1;
-		}
-		else if (charset_checker(str[i], c) == 1)
-			flag = 0;
-		i++;
+		while (!is_word(str[i], check) && str[i])
+			i++;
+		if (is_word(str[i], check))
+			res++;
+		while (is_word(str[i], check))
+			i++;
 	}
-	return (counter);
+	return (res);
 }
 
-void	free_all(char **s)
+static int	word_len(char const *str, char check)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (s[i])
+	while (is_word(str[i], check))
+		i++;
+	return (i);
+}
+
+static char	*dup_word(char const *str, char check)
+{
+	char	*res;
+	int		i;
+	int		len;
+
+	len = word_len(str, check);
+	res = malloc(sizeof(char) * (len + 1));
+	i = 0;
+	while (i < len)
 	{
-		free(s[i]);
+		res[i] = str[i];
 		i++;
 	}
-	free(s);
+	res[i] = '\0';
+	return (res);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	buff[500];
-	char	**ar;
-	int		num_words;
+	char	**res;
+	int		size;
 	int		i;
-	int		counter;
+	int		j;
 
+	j = 0;
+	size = count_words(s, c);
+	res = malloc(sizeof(char *) * (size + 1));
 	i = 0;
-	num_words = ft_str_counter(s, c);
-	ar = (char **)malloc((num_words + 1) * sizeof(char *));
-	if (!ar)
-		return (NULL);
-	counter = 1;
-	while (i < num_words)
+	while (s[i])
 	{
-		portion(s, c, counter++, buff);
-		ar[i] = ft_strdup(buff);
-		if (!(ar[i]))
+		while (!is_word(s[i], c) && s[i])
+			i++;
+		if (is_word(s[i], c))
 		{
-			free_all(ar);
-			return (NULL);
+			res[j] = dup_word(&s[i], c);
+			j++;
 		}
-		i++;
+		while (is_word(s[i], c))
+			i++;
 	}
-	ar[num_words] = NULL;
-	return (ar);
+	res[j] = NULL;
+	return (res);
 }
-
-/* int	main()
-{
-	char	s[] = "\0ciao\0sono petra\0come stai?";
-	char	**a = ft_split(s, '\0');
-	int	i = 0;
-	while (a[i])
-	{
-		printf("%s\n", a[i]);
-		i++;
-	}
-	free_all(a);
-	return (0);
-} */

@@ -12,12 +12,6 @@
 
 #include "get_next_line.h"
 
-char	*ft_strjoin_fs1(char *s1, const char *s2);
-void	ft_bzero(void *s, size_t n);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(char *s);
-void	*ft_calloc(size_t size);
-
 char	*ft_remove_excess(char *line)
 {
 	int		i;

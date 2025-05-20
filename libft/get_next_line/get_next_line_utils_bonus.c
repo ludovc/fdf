@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-int	ft_strlen(const char *s)
+int	gnl_strlen(const char *s)
 {
 	int	res;
 
@@ -22,7 +22,7 @@ int	ft_strlen(const char *s)
 	return (res);
 }
 
-char	*ft_strjoin_fs1(char *s1, const char *s2)
+char	*gnl_strjoin_fs1(char *s1, const char *s2)
 {
 	char	*res;
 	int		i;
@@ -30,8 +30,8 @@ char	*ft_strjoin_fs1(char *s1, const char *s2)
 	int		lens1;
 	int		lens2;
 
-	lens1 = ft_strlen(s1);
-	lens2 = ft_strlen(s2);
+	lens1 = gnl_strlen(s1);
+	lens2 = gnl_strlen(s2);
 	res = malloc(lens1 + lens2 + 1);
 	i = 0;
 	while (i < lens1)
@@ -51,7 +51,7 @@ char	*ft_strjoin_fs1(char *s1, const char *s2)
 	return (res);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*gnl_strchr(const char *s, int c)
 {
 	int		i;
 	char	*res;
@@ -67,7 +67,7 @@ char	*ft_strchr(const char *s, int c)
 	return (res);
 }
 
-char	*ft_strdup(char *s)
+char	*gnl_strdup(char *s)
 {
 	int		i;
 	char	*res;
@@ -86,7 +86,7 @@ char	*ft_strdup(char *s)
 	return (res);
 }
 
-void	*ft_calloc(size_t size)
+void	*gnl_calloc(size_t size)
 {
 	void	*res;
 	size_t	i;
