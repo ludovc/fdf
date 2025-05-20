@@ -5,6 +5,7 @@ parsing.c \
 NAME =		fdf
 CFLAGS =	-Wall -Wextra -Werror -g
 OBJS = $(SRCS:.c=.o)
+LIBFT = libft/libft.a
 
 .c.o:
 	cc $(CFLAGS) -c $< -o $@
@@ -12,10 +13,13 @@ OBJS = $(SRCS:.c=.o)
 all:		$(NAME)
 
 parsing:
-	cc -g parsing.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft/libft.a
+	cc -g parsing.c libft/libft.a
 
-$(NAME):	minilibx-linux/libmlx.a $(OBJS)
-			cc $(CFLAGS) $(OBJS) get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft/libft.a -Lminilibx-linux -lmlx -lXext -lX11 -o $(NAME)
+$(NAME):	$(LIBFT) minilibx-linux/libmlx.a $(OBJS)
+			cc $(CFLAGS) $(OBJS) libft/libft.a -Lminilibx-linux -lmlx -lXext -lX11 -o $(NAME)
+
+$(LIBFT):
+	make -C libft
 
 minilibx-linux/libmlx.a:
 			git clone https://github.com/42Paris/minilibx-linux.git
@@ -25,6 +29,7 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-			rm -f $(NAME)
+	make -C libft fclean
+	rm -f $(NAME)
 
 re:	fclean all
