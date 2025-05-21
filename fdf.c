@@ -56,26 +56,46 @@ void	create_image(t_mat *mat, t_data *img)
 	}
 }
 
-int	main(void)
+typedef struct s_fdf
 {
 	void	*mlx;
 	void	*mlx_win;
-	t_data	img;
 	t_mat	mat;
+}	t_fdf;
 
-	parsing(&mat);
-	print_mat(mat);
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1000, 1000, "Hello world!");
-	img.img = mlx_new_image(mlx, 1000, 1000);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	create_image(&mat, &img);
+int	close_window(void *param)
+{
+	t_fdf	*fdf;
 
+	fdf = (t_fdf *)param;
+	mlx_destroy_window(fdf->mlx, fdf->mlx_win);
+	mlx_destroy_display(fdf->mlx);
+	free(fdf->mlx);
+	free(fdf);
+	exit(0);
+	return (0);
+}
+
+int	main(void)
+{
+	t_fdf	*fdf;
+	t_data	img;
+
+	fdf = malloc(sizeof(t_fdf));
+	//parsing(&fdf->mat);
+	//print_mat(fdf->mat);
+	fdf->mlx = mlx_init();
+	fdf->mlx_win = mlx_new_window(fdf->mlx, 1000, 1000, "Hello world!");
+	//img.img = mlx_new_image(fdf->mlx, 1000, 1000);
+	//img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	//create_image(&fdf->mat, &img);
+(void)img;
 
 	//put_horizontal_line(&img, 0, 0, 100);
 	//put_vertical_line(&img, 10, 10, 100);
 	//put_horizontal_line(&img, 10, 110, 100);
 	//put_vertical_line(&img, 110, 10, 100);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	//mlx_put_image_to_window(fdf->mlx, fdf->mlx_win, img.img, 0, 0);
+	mlx_hook(fdf->mlx_win, 17, 0, close_window, fdf);
+	mlx_loop(fdf->mlx);
 }
