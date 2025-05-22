@@ -101,6 +101,41 @@ t_data	*create_flat_image(t_fdf *fdf)
 	return (img_data);
 }
 
+void isometric(int *x, int *y, int z)
+{
+    int prev_x = *x;
+    int prev_y = *y;
+    *x = (prev_x - prev_y) * cos(0.523599); // 30°
+    *y = (prev_x + prev_y) * sin(0.523599) - z;
+}
+
+void	bresenham(t_fdf *fdf, int x0, int y0, int x1, int y1)
+{
+	int dx = abs(x1 - x0);
+	int dy = -abs(y1 - y0);
+	int sx = x0 < x1 ? 1 : -1;
+	int sy = y0 < y1 ? 1 : -1;
+	int err = dx + dy;  // errore iniziale
+
+	while (1)
+	{
+		mlx_pixel_put(fdf->mlx, fdf->win, x0, y0, color); // Disegna il pixel
+		if (x0 == x1 && y0 == y1)
+			break;
+		int e2 = 2 * err;
+		if (e2 >= dy)
+		{
+			err += dy;
+			x0 += sx;
+		}
+		if (e2 <= dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
+}
+
 int	main(void)
 {
 	t_fdf	*fdf;
