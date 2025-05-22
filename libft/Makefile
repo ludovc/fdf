@@ -34,23 +34,55 @@ ft_putstr_fd.c \
 ft_putendl_fd.c \
 ft_putnbr_fd.c \
 
+SRCS_BONUS = \
+ft_lstadd_back.c \
+ft_lstadd_front.c \
+ft_lstclear.c \
+ft_lstdelone.c \
+ft_lstiter.c \
+ft_lstlast.c \
+ft_lstmap.c \
+ft_lstnew.c \
+ft_lstsize.c \
+
+SRCS_GET_NEXT_LINE = \
+get_next_line/get_next_line_bonus.c \
+get_next_line/get_next_line_utils_bonus.c \
+
 NAME = libft.a
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+OBJS_GET_NEXT_LINE = $(SRCS_GET_NEXT_LINE:.c=.o)
+CFLAGS = -Wall -Wextra -Werror
+FT_PRINTF = ft_printf/libftprintf.a
 
 .c.o:
 			cc $(CFLAGS) -c $< -o $@
 
-all:		$(NAME)
+all:		$(NAME) bonus expansion
 
 $(NAME):	$(OBJS)
 			ar rcs $(NAME) $(OBJS)
 
+bonus:		$(NAME) $(OBJS_BONUS)
+			ar rcs $(NAME) $(OBJS_BONUS)
+
+expansion: $(FT_PRINTF) $(OBJS_GET_NEXT_LINE)
+	ar rcs $(NAME) $(OBJS_GET_NEXT_LINE)
+
+$(FT_PRINTF):
+	make -C ft_printf
+	rm ft_printf/*.o
+	cd ./ft_printf && ar x libftprintf.a
+	ar rcs $(NAME) ft_printf/*.o
+
 clean:
-			rm -f $(OBJS)
+			rm -f $(OBJS) $(OBJS_BONUS)
+			make -C ft_printf clean
 
 fclean:		clean
 			rm -f $(NAME)
+			make -C ft_printf fclean
 
 re:			fclean all
 

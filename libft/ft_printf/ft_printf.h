@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcasu <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lucasu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 17:53:02 by lcasu             #+#    #+#             */
-/*   Updated: 2023/04/02 19:26:13 by lcasu            ###   ########.fr       */
+/*   Created: 2025/01/17 11:27:14 by lucasu            #+#    #+#             */
+/*   Updated: 2025/01/17 11:37:29 by lucasu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include <unistd.h>
+
 # include <stdarg.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 int	ft_printf(const char *format, ...);
-int	ft_put_c(char c);
-int	ft_put_s(char *s);
-int	ft_put_x(unsigned long n);
-int	ft_put_up_x(unsigned long n);
-int	ft_put_p(unsigned long p);
-int	ft_put_d(int n);
-int	ft_put_u(unsigned int n);
+int	putnbr(int n);
+int	putnbr_u(unsigned int n);
+int	putnbr_x(unsigned int n, char *hex);
+int	putnbr_p(unsigned long n, char *hex);
+int	putp(unsigned long n, char *hex);
+int	ft_putchar(char c);
+int	putstr(char *s);
 
 #endif

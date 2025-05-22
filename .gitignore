@@ -3,3 +3,4 @@ _*
 a.out
 minilibx-linux
 test/
+*.o
