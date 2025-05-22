@@ -88,36 +88,37 @@ t_data	*create_flat_image(t_fdf *fdf)
 	img_data->img = mlx_new_image(fdf->mlx, 1000, 1000);
 	img_data->addr = mlx_get_data_addr(img_data->img, &img_data->bits_per_pixel, &img_data->line_length, &img_data->endian);
 	i = 0;
-	while (mat->mat[i])
+	while (fdf->mat.mat[i])
 	{
 		j = 0;
-		while (j < mat->x)
+		while (j < fdf->mat.x)
 		{
-			my_mlx_pixel_put(img_data, 100 + j * 30, 100 + i * 30 + j * 10, 0x00FFFFFF);
+			my_mlx_pixel_put(img_data, j * 30, i * 30, 0x00FFFFFF);
 			j++;
 		}
 		i++;
 	}
+	return (img_data);
 }
 
 int	main(void)
 {
 	t_fdf	*fdf;
-	t_data	*img;
+	t_data	*img_data;
 
 	fdf = malloc(sizeof(t_fdf));
-	//parsing(&fdf->mat);
-	//print_mat(fdf->mat);
+	parsing(&fdf->mat);
+	print_mat(fdf->mat);
 	fdf->mlx = mlx_init();
 	fdf->mlx_win = mlx_new_window(fdf->mlx, 1000, 1000, "Hello world!");
 	//create_inclined_image(&fdf->mat, &img);
-(void)img;
+	img_data = create_flat_image(fdf);
+	mlx_put_image_to_window(fdf->mlx, fdf->mlx_win, img_data->img, 0, 0);
 
 	//put_horizontal_line(&img, 0, 0, 100);
 	//put_vertical_line(&img, 10, 10, 100);
 	//put_horizontal_line(&img, 10, 110, 100);
 	//put_vertical_line(&img, 110, 10, 100);
-	//mlx_put_image_to_window(fdf->mlx, fdf->mlx_win, img.img, 0, 0);
 	mlx_hook(fdf->mlx_win, 17, 0, close_window, fdf);
 	mlx_loop(fdf->mlx);
 }
